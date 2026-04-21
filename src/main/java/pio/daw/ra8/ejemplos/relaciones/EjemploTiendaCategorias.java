@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import pio.daw.ra8.modelo.Categoria;
 import pio.daw.ra8.modelo.Producto;
 import pio.daw.ra8.util.JPAUtil;
-import java.util.List;
 
 /**
  * BLOQUE 5 – Modelo completo de la tienda: Categoria → Producto.
