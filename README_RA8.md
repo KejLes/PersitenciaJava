@@ -91,13 +91,13 @@ Introducción a la persistencia de objetos sin BBDD externa. Sirve como puente c
 
 ### Ejercicios
 
-**Ejercicio 1.1** — Serializar una biblioteca  
+**Ejercicio 1.1** — Serializar una biblioteca
 Crea la clase `LibroSerial` (título, autor, ISBN, precio, año). Escribe un programa que guarde una lista de libros en `biblioteca.dat` y otro que la recupere y la muestre ordenada por título.
 
-**Ejercicio 1.2** — `transient` en la práctica  
+**Ejercicio 1.2** — `transient` en la práctica
 Añade a `LibroSerial` un campo `transient int vecesConsultado`. Verifica que tras serializar y deserializar ese contador vuelve a 0.
 
-**Ejercicio 1.3** — Compatibilidad de versiones  
+**Ejercicio 1.3** — Compatibilidad de versiones
 Añade un nuevo campo `String genero` a `LibroSerial`. Comprueba la diferencia de comportamiento con y sin `serialVersionUID` declarado explícitamente.
 
 ---
@@ -150,13 +150,13 @@ try {
 
 ### Ejercicios
 
-**Ejercicio 2.1** — Gestión de películas  
+**Ejercicio 2.1** — Gestión de películas
 Crea la entidad `Pelicula` (título, director, año, duración en minutos, puntuación 0–10). Implementa un programa que: añada 5 películas, busque una por ID, cambie su puntuación y la elimine.
 
-**Ejercicio 2.2** — Validación antes de persistir  
+**Ejercicio 2.2** — Validación antes de persistir
 Añade validación manual en el código de negocio: si el stock de un `Producto` es negativo o el precio es 0, lanza una `IllegalArgumentException` antes de llamar a `persist`.
 
-**Ejercicio 2.3** — Subida masiva de precios  
+**Ejercicio 2.3** — Subida masiva de precios
 Dado un catálogo de 10 productos, sube un 15% el precio de todos los que tengan stock menor a 20 usando JPQL `UPDATE`.
 
 ---
@@ -190,17 +190,17 @@ List<Producto> resultado = em.createQuery(
 
 ### Ejercicios
 
-**Ejercicio 3.1** — Consultas sobre películas  
+**Ejercicio 3.1** — Consultas sobre películas
 Sobre la entidad `Pelicula` del ejercicio 2.1:
 - Listar todas ordenadas por puntuación descendente.
 - Buscar películas de un director concreto (parámetro).
 - Contar cuántas películas tienen duración superior a 2 horas.
 - Mostrar la película mejor valorada.
 
-**Ejercicio 3.2** — Estadísticas de inventario  
+**Ejercicio 3.2** — Estadísticas de inventario
 Sobre `Producto`: muestra el nombre, precio y stock de los 3 productos más caros. Muestra también cuántos productos tienen stock agotado (stock = 0).
 
-**Ejercicio 3.3** — Paginación de resultados  
+**Ejercicio 3.3** — Paginación de resultados
 Lista todos los productos de 4 en 4, mostrando el número de página y el total de páginas.
 
 ---
@@ -236,13 +236,13 @@ Lista todos los productos de 4 en 4, mostrando el número de página y el total 
 
 ### Ejercicios
 
-**Ejercicio 4.1** — Jerarquía de empleados  
+**Ejercicio 4.1** — Jerarquía de empleados
 Crea `Empleado` (abstracta: nombre, salario) con subclases `Programador` (lenguaje principal) y `Gerente` (número de personas a cargo). Guarda 5 empleados de distintos tipos y lista todos ordenados por salario.
 
-**Ejercicio 4.2** — Tienda con pedidos  
+**Ejercicio 4.2** — Tienda con pedidos
 Añade las entidades `Cliente` y `Pedido`. Un `Cliente` puede tener múltiples `Pedido`s, cada uno con una fecha y una lista de `Producto`s. Implementa: crear un pedido, listar los pedidos de un cliente y calcular el importe total de cada pedido.
 
-**Ejercicio 4.3** — Integridad referencial  
+**Ejercicio 4.3** — Integridad referencial
 Verifica que al eliminar una `Categoria` con `orphanRemoval = true`, sus `Producto`s también desaparecen. Luego elimina solo un producto de la categoría sin eliminar la categoría.
 
 ---
@@ -275,10 +275,10 @@ try {
 
 ### Ejercicios
 
-**Ejercicio 5.1** — Sistema de préstamos de biblioteca  
+**Ejercicio 5.1** — Sistema de préstamos de biblioteca
 Implementa el préstamo de un libro: crea el objeto `Prestamo` (libro, alumno, fecha) y marca el libro como no disponible dentro de la misma transacción. Si el alumno ya tiene 3 préstamos activos, cancela con rollback y lanza una excepción descriptiva.
 
-**Ejercicio 5.2** — Cesta de la compra  
+**Ejercicio 5.2** — Cesta de la compra
 Al confirmar un pedido: descuenta el stock de cada producto pedido. Si cualquier producto no tiene stock suficiente, cancela todo el pedido con rollback y muestra qué producto falló.
 
 ---

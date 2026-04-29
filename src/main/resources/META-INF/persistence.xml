@@ -2,6 +2,8 @@
 <persistence>
   <persistence-unit name="ra8DB">
     <provider>com.objectdb.jpa.Provider</provider>
+
+    <!-- Clases de ejercicios anteriores -->
     <class>pio.daw.ra8.modelo.Categoria</class>
     <class>pio.daw.ra8.modelo.Producto</class>
     <class>pio.daw.ra8.ejemplos.jpa.Contacto</class>
@@ -10,6 +12,12 @@
     <class>pio.daw.ra8.ejemplos.relaciones.Moto</class>
     <class>pio.daw.ra8.ejemplos.relaciones.Autor</class>
     <class>pio.daw.ra8.ejemplos.relaciones.Libro</class>
+
+    <!-- Entidades del proyecto Mercado Libre -->
+    <class>pio.daw.ra8.proyectoRA8.Simulacion</class>
+    <class>pio.daw.ra8.proyectoRA8.Individuo</class>
+    <class>pio.daw.ra8.proyectoRA8.Intercambio</class>
+
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="jakarta.persistence.jdbc.url" value="ra8.odb"/>
