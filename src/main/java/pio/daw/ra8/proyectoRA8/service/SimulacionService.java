@@ -15,6 +15,8 @@ import pio.daw.ra8.util.JPAUtil;
 public class SimulacionService {
 
 	private final String path_bbdd = "BBDD_Proyecto_RA8.odb";
+	private EntityManagerFactory emf;
+	private EntityManager em;
 
 	private List<Individuo> listaIndividuos;
 
@@ -29,21 +31,22 @@ public class SimulacionService {
 		this.numIndividuos = numIndividuos;
 		this.saldoInicial = saldoInicial;
 		this.numRondas = numRondas;
+		
+		emf = JPAUtil.crearEMF(path_bbdd);
+		em = emf.createEntityManager();
 	}
-
+	
 	public void empezarSimulacion() {
-		generaNumeroIndividuos(numIndividuos, saldoInicial);
-		simulacion = new Simulacion(numRondas, numIndividuos, saldoInicial, listaIndividuos);
-		EntityManagerFactory emf = JPAUtil.crearEMF(path_bbdd);
-		EntityManager em = emf.createEntityManager();
-
 		Individuo	emisor;
 		Individuo	receptor;
 		Intercambio	intercambio;
-
 		BigDecimal	importe;
-
+		
 		em.getTransaction().begin();
+		simulacion = new Simulacion(numRondas, numIndividuos, saldoInicial);
+		generaNumeroIndividuos(numIndividuos, saldoInicial);
+		simulacion.setIndividuos(listaIndividuos);
+		em.persist(simulacion);
 		for (int ronda = 0; ronda < numRondas; ronda++) {
 			// ... lógica de la ronda ...
 			emisor = elegirIndividuo();
@@ -58,10 +61,13 @@ public class SimulacionService {
 			emisor.setSaldoActual(emisor.getSaldoActual().subtract(importe));
 			receptor.setSaldoActual(receptor.getSaldoActual().add(importe));
 
+			//Crear la información del intercambio
+			intercambio = new Intercambio(ronda, importe, emisor, receptor);
+
+			// Cada 100 rondas se guardan los cambios
 			em.persist(intercambio);
 			if ((ronda + 1) % 100 == 0) {
 				em.getTransaction().commit();
-				em.clear(); // libera la caché del EntityManager
 				em.getTransaction().begin();
 			}
 		}
@@ -69,24 +75,22 @@ public class SimulacionService {
 		if (em.getTransaction().isActive()) {
 			em.getTransaction().commit();
 		}
-		//commit final para el objeto simulacion
-		em.getTransaction().begin();
-		em.persist(simulacion);
-		em.getTransaction().commit();
 	}
 
 	public void generaNumeroIndividuos(long numIndividuos, BigDecimal saldoInicial) {
+		Individuo individuo;
 		for (int i = 0; i < numIndividuos; i++) {
-			listaIndividuos.add(new Individuo(
+			individuo = new Individuo(
 				"nombre",
 				this.saldoInicial,
-				this.simulacion
-			));
+				this.simulacion);
+			em.persist(individuo);
+			listaIndividuos.add(individuo);
 		}
 	}
 
 	public Individuo elegirIndividuo() {
-		int randNum = (int) (Math.random() * (listaIndividuos.size() - 1));
+		int randNum = (int) (Math.random() * (this.listaIndividuos.size() - 1));
 		return (listaIndividuos.get(randNum));
 	}
 }

@@ -45,13 +45,11 @@ public class Simulacion {
 	public Simulacion(
 		long numRondas,
 		long numIndividuos,
-		BigDecimal saldoInicial,
-		List<Individuo> individuos
+		BigDecimal saldoInicial
 	) {
 		this.numRondas = numRondas;
 		this.numIndividuos = numIndividuos;
 		this.saldoInicial = saldoInicial;
-		this. individuos = individuos;
 	}
 
 	public long getId() {
