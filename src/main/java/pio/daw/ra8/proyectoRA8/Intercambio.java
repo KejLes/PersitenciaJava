@@ -11,7 +11,7 @@ import jakarta.persistence.ManyToOne;
 
 /**
  * Clase para guardar la información de los intercambios entre los individuos
- * Tiene todos los "getters" y "setters" de todos los campos
+ * Tiene todos los "getters" y "setters" de todos los campos. Además de toString.
  */
 @Entity
 public class Intercambio {
@@ -40,6 +40,17 @@ public class Intercambio {
 		this.importe = importe;
 		this.emisor = emisor;
 		this.receptor = receptor;
+	}
+
+	@Override
+	public String toString() {
+		return (
+			"id: " + this.id +
+			"\nnombre: " + this.numRonda +
+			"\nimporte del intercambio: " + this.importe +
+			"\nindividuo emisor del intercambio: " + this.emisor +
+			"\nindividuo receptor del intercambio: " + this.receptor
+		);
 	}
 
 	public long getId() {

@@ -11,7 +11,7 @@ import jakarta.persistence.ManyToOne;
 /**
  * Clase para guardar la información de cada individuo
  * No le puse nombre porque opino que es innecesario teniendo el id que se genera sólo.
- * Tiene todos los "getters" y "setters" de todos los campos
+ * Tiene todos los "getters" y "setters" de todos los campos. Además de toString.
  */
 @Entity
 public class Individuo {
@@ -38,6 +38,17 @@ public class Individuo {
 		this.saldoInicial = saldoInicial;
 		this.saldoActual = saldoInicial;
 		this.simulacion = simulacion;
+	}
+
+	@Override
+	public String toString() {
+		return (
+			"id: " + this.id +
+			"\nnombre: " + this.nombre +
+			"\nsaldo inicial del individuo: " + this.saldoInicial +
+			"\nsaldo actual del individuo: " + this.saldoActual +
+			"\nsimulacion relacionada: " + this.simulacion
+		);
 	}
 
 	public long getId() {

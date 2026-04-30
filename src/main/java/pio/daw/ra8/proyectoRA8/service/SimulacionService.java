@@ -6,17 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
 import pio.daw.ra8.proyectoRA8.Individuo;
 import pio.daw.ra8.proyectoRA8.Intercambio;
 import pio.daw.ra8.proyectoRA8.Simulacion;
-import pio.daw.ra8.util.JPAUtil;
 
+/**
+ * En resumen, el Main le pasa ya creado em y emf, luego lo uso en sus métodos
+ * Implementa la lógica para simular los intercambios entre los individuos además
+ * de encargarse de persistir los distintos datos de los objetos Individuo, Intercambio, Simulacion
+ */
 public class SimulacionService {
-
-	private final String path_bbdd = "BBDD_Proyecto_RA8.odb";
-	private EntityManagerFactory emf;
-	private EntityManager em;
+	private final EntityManager em;
 
 	private List<Individuo> listaIndividuos;
 
@@ -26,22 +26,25 @@ public class SimulacionService {
 
 	private Simulacion simulacion;
 
-	public SimulacionService(long numIndividuos, BigDecimal saldoInicial, long numRondas) {
+	public SimulacionService(
+		long numIndividuos,
+		BigDecimal saldoInicial,
+		long numRondas,
+		EntityManager em
+	) {
 		listaIndividuos = new ArrayList<>();
 		this.numIndividuos = numIndividuos;
 		this.saldoInicial = saldoInicial;
 		this.numRondas = numRondas;
-		
-		emf = JPAUtil.crearEMF(path_bbdd);
-		em = emf.createEntityManager();
+		this.em = em;
 	}
-	
+
 	public void empezarSimulacion() {
 		Individuo	emisor;
 		Individuo	receptor;
 		Intercambio	intercambio;
 		BigDecimal	importe;
-		
+
 		em.getTransaction().begin();
 		simulacion = new Simulacion(numRondas, numIndividuos, saldoInicial);
 		generaNumeroIndividuos(numIndividuos, saldoInicial);

@@ -15,7 +15,7 @@ import jakarta.persistence.OneToMany;
 /**
  * Clase para guardar la información de la simulación
  * No le puse nombre porque opino que es innecesario teniendo el id que se genera sólo.
- * Tiene todos los "getters" y "setters" de todos los campos
+ * Tiene todos los "getters" y "setters" de todos los campos. Además de toString.
  */
 @Entity
 public class Simulacion {
@@ -50,6 +50,17 @@ public class Simulacion {
 		this.numRondas = numRondas;
 		this.numIndividuos = numIndividuos;
 		this.saldoInicial = saldoInicial;
+	}
+
+	@Override
+	public String toString() {
+		return (
+			"id: " + this.id +
+			"\nnombre: " + this.nombre +
+			"\nnumero de rondas: " + this.numRondas +
+			"\numero de individuos: " + this.numIndividuos +
+			"\nsaldo inicial de cada individuo: " + this.saldoInicial
+		);
 	}
 
 	public long getId() {

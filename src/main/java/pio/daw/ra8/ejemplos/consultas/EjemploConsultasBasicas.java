@@ -1,6 +1,7 @@
 package pio.daw.ra8.ejemplos.consultas;
 
-import jakarta.persistence.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import pio.daw.ra8.modelo.Producto;
 import pio.daw.ra8.util.JPAUtil;
 
